@@ -1,37 +1,52 @@
-<div class="row-fluid">
-  <div class="span5">
-    <h2>Original Text</h2>
-  </div>
-  <div class="span5">
-    <h2>Translation</h2>
-  </div>
-  <div class="span2"></div>
-</div>
-
 <form ng-submit="addString()">
-  <div class="row-fluid">
-    <div class="span5">
-      <textarea class="input-block-level" ng-model="string.text" required=""></textarea>
-    </div>
-    <div class="span5">
-      <textarea class="input-block-level" ng-model="string.translation"></textarea>
-    </div>
-    <div class="span2">
-      <input class="btn btn-large btn-primary" type="submit" value="Add">
-    </div>
-  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th ng-repeat="field in settings.template">
+          {{field.title}}
+        </th>
+        <td></td>
+      </tr>
+      <tr>
+        <td ng-repeat="field in stringFields">
+          <textarea class="input-block-level" ng-model="field.data" ng-required="field.required"></textarea>
+        </td>
+        <td>
+          <input class="btn btn-large btn-primary" type="submit" value="Add">
+        </td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="string in strings">
+        <td ng-repeat="field in settings.template">
+          <textarea class="input-block-level" ng-model="string[field.key]" ng-required="field.required"></textarea>
+        </td>
+        <td>
+          <button ng-click="removeString($index)" class="btn btn-danger">
+            Remove
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </form>
 
-<div class="row-fluid" ng-repeat="string in strings">
-  <div class="span5">
-    <textarea class="input-block-level" ng-model="string.text"></textarea>
+<div class="row-fluid" id="json">
+  <div class="span6">
+    <h4>JSON</h4>
+    <p>This is the data you have stored.</p>
+    <textarea class="input-block-level" rows="10">
+      {{strings | json}}
+    </textarea>
   </div>
-  <div class="span5">
-    <textarea class="input-block-level" ng-model="string.translation"></textarea>
-  </div>
-  <div class="span2">
-    <button ng-click="removeString($index)" class="btn btn-danger">
-      Remove
+
+  <div class="span6">
+    <h4>String Template</h4>
+    <p>Configure the fields used for each text</p>
+    <textarea json="" class="input-block-level" ng-model="settings.template" rows="10">
+    </textarea>
+    <button ng-click="resetTemplate()" class="btn btn-danger">
+      Reset
     </button>
   </div>
 </div>
