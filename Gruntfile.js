@@ -15,6 +15,7 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
   require('load-grunt-tasks')(grunt);
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('grunt-gh-pages');
 
   // configurable paths
   var yeomanConfig = {
@@ -311,6 +312,12 @@ module.exports = function (grunt) {
         'svgmin',
         'htmlmin'
       ]
+    },
+    'gh-pages': {
+      options: {
+        base: 'dist'
+      },
+      src: ['**']
     },
     karma: {
       unit: {
