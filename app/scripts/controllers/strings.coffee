@@ -11,3 +11,6 @@ angular.module('stringtheoryApp')
       }
 
       $scope.stringText = ''
+
+    $scope.removeString = (index) ->
+      $scope.strings.splice(index, 1)
