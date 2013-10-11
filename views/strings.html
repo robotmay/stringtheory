@@ -1,0 +1,37 @@
+<div class="row-fluid">
+  <div class="span5">
+    <h2>Original Text</h2>
+  </div>
+  <div class="span5">
+    <h2>Translation</h2>
+  </div>
+  <div class="span2"></div>
+</div>
+
+<form ng-submit="addString()">
+  <div class="row-fluid">
+    <div class="span5">
+      <textarea class="input-block-level" ng-model="string.text" required=""></textarea>
+    </div>
+    <div class="span5">
+      <textarea class="input-block-level" ng-model="string.translation"></textarea>
+    </div>
+    <div class="span2">
+      <input class="btn btn-large btn-primary" type="submit" value="Add">
+    </div>
+  </div>
+</form>
+
+<div class="row-fluid" ng-repeat="string in strings">
+  <div class="span5">
+    <textarea class="input-block-level" ng-model="string.text"></textarea>
+  </div>
+  <div class="span5">
+    <textarea class="input-block-level" ng-model="string.translation"></textarea>
+  </div>
+  <div class="span2">
+    <button ng-click="removeString($index)" class="btn btn-danger">
+      Remove
+    </button>
+  </div>
+</div>
