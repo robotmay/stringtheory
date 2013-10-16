@@ -9,11 +9,13 @@ angular.module('stringtheoryApp')
       { key: "translation", title: "Translation", required: false }
     ]
 
+    defaultSettings =
+      showSettings: false
+      perPage: 25
+
     storage.bind $scope, 'strings', { defaultValue: [] }
-    storage.bind $scope, 'settings',
-      defaultValue:
-        template: defaultTemplate
-        showSettings: false
+    storage.bind $scope, 'settings', { defaultValue: defaultSettings }
+    storage.bind $scope, 'template', { defaultValue: defaultTemplate }
 
     $scope.stringFields = []
     $scope.filteredStrings = []
@@ -21,7 +23,7 @@ angular.module('stringtheoryApp')
     # Pagination
     $scope.currentPage = 1
     $scope.maxSize = 5
-    $scope.perPage = 25
+    $scope.perPage = $scope.settings.perPage || 25
 
     $scope.$watch 'currentPage + perPage', ->
       start = ($scope.currentPage - 1) * $scope.perPage
@@ -32,7 +34,7 @@ angular.module('stringtheoryApp')
     # Utility to generate the new string template
     $scope.calculateStringFields = ->
       $scope.stringFields = []
-      for field in $scope.settings.template
+      for field in $scope.template
         field = angular.copy(field)
         field.data = ""
         $scope.stringFields.push field
@@ -40,8 +42,8 @@ angular.module('stringtheoryApp')
     $scope.calculateStringFields()
 
     # Watch for settings changes
-    $scope.$watch 'settings', (oldSettings, newSettings) ->
-      console.log "Settings changed"
+    $scope.$watch 'template', (oldTemplate, newTemplate) ->
+      console.log "Template changed"
       $scope.calculateStringFields()
 
     $scope.addString = ->
@@ -56,4 +58,8 @@ angular.module('stringtheoryApp')
       $scope.strings.splice(index, 1)
 
     $scope.resetTemplate = ->
-      $scope.settings.template = defaultTemplate
+      $scope.template = defaultTemplate
+
+    $scope.resetSettings = ->
+      $scope.settings = defaultSettings
+
