@@ -33,7 +33,9 @@
 
 <pagination page="currentPage" items-per-page="perPage" total-items="strings.length" max-size="maxSize"></pagination>
 
-<div class="row-fluid" id="json">
+<button class="btn" ng-click="settings.showSettings = !settings.showSettings">Show advanced settings</button>
+
+<div class="row-fluid" id="json" collapse="settings.showSettings">
   <div class="span6">
     <h4>JSON</h4>
     <p>This is the data you have stored.</p>

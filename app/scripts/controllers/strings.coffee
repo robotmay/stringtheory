@@ -13,6 +13,7 @@ angular.module('stringtheoryApp')
     storage.bind $scope, 'settings',
       defaultValue:
         template: defaultTemplate
+        showSettings: false
 
     $scope.stringFields = []
     $scope.filteredStrings = []
