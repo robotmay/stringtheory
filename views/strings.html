@@ -2,7 +2,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th ng-repeat="field in settings.template">
+        <th ng-repeat="field in template">
           {{field.title}}
         </th>
         <td></td>
@@ -18,7 +18,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="string in filteredStrings">
-        <td ng-repeat="field in settings.template">
+        <td ng-repeat="field in template">
           <textarea class="input-block-level" ng-model="string[field.key]" ng-required="field.required"></textarea>
         </td>
         <td>
@@ -34,21 +34,35 @@
 <pagination page="currentPage" items-per-page="perPage" total-items="strings.length" max-size="maxSize"></pagination>
 
 <button class="btn" ng-click="settings.showSettings = !settings.showSettings">Show advanced settings</button>
-
-<div class="row-fluid" id="json" collapse="settings.showSettings">
-  <div class="span6">
-    <h4>JSON</h4>
-    <p>This is the data you have stored.</p>
-    <textarea class="input-block-level" rows="10">{{strings | json}}</textarea>
+<hr>
+<div collapse="settings.showSettings">
+  <div class="row-fluid">
+    <div class="span12">
+      <h4>Settings</h4>
+      <p>
+        <code>{{settings | json}}</code>
+      </p>
+      <button class="btn btn-danger" ng-click="resetSettings()">Reset settings</button>
+    </div>
   </div>
 
-  <div class="span6">
-    <h4>String Template</h4>
-    <p>Configure the fields used for each text</p>
-    <textarea json="" class="input-block-level" ng-model="settings.template" rows="10">
-    </textarea>
-    <button ng-click="resetTemplate()" class="btn btn-danger">
-      Reset
-    </button>
+  <hr>
+
+  <div class="row-fluid" id="json">
+    <div class="span6">
+      <h4>JSON</h4>
+      <p>This is the data you have stored.</p>
+      <textarea class="input-block-level" rows="10">{{strings | json}}</textarea>
+    </div>
+
+    <div class="span6">
+      <h4>String Template</h4>
+      <p>Configure the fields used for each text</p>
+      <textarea json="" class="input-block-level" ng-model="template" rows="10">
+      </textarea>
+      <button ng-click="resetTemplate()" class="btn btn-danger">
+        Reset
+      </button>
+    </div>
   </div>
 </div>
