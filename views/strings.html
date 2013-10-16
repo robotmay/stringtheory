@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="string in strings">
+      <tr ng-repeat="string in filteredStrings">
         <td ng-repeat="field in settings.template">
           <textarea class="input-block-level" ng-model="string[field.key]" ng-required="field.required"></textarea>
         </td>
@@ -31,13 +31,15 @@
   </table>
 </form>
 
-<div class="row-fluid" id="json">
+<pagination page="currentPage" items-per-page="perPage" total-items="strings.length" max-size="maxSize"></pagination>
+
+<button class="btn" ng-click="settings.showSettings = !settings.showSettings">Show advanced settings</button>
+
+<div class="row-fluid" id="json" collapse="settings.showSettings">
   <div class="span6">
     <h4>JSON</h4>
     <p>This is the data you have stored.</p>
-    <textarea class="input-block-level" rows="10">
-      {{strings | json}}
-    </textarea>
+    <textarea class="input-block-level" rows="10">{{strings | json}}</textarea>
   </div>
 
   <div class="span6">
