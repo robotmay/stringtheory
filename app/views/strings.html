@@ -17,7 +17,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="string in strings">
+      <tr ng-repeat="string in filteredStrings">
         <td ng-repeat="field in settings.template">
           <textarea class="input-block-level" ng-model="string[field.key]" ng-required="field.required"></textarea>
         </td>
@@ -30,6 +30,8 @@
     </tbody>
   </table>
 </form>
+
+<pagination page="currentPage" items-per-page="perPage" total-items="strings.length" max-size="maxSize"></pagination>
 
 <div class="row-fluid" id="json">
   <div class="span6">
